@@ -1,5 +1,7 @@
+using BlazorServerCustomAuthTest.Auth;
 using BlazorServerCustomAuthTest.Components;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -29,6 +31,12 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddAuthorization();
+builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>(
+                provider => provider.GetRequiredService<AuthStateProvider>()
+                );
+builder.Services.AddScoped<ILoginService, AuthStateProvider>(
+                provider => provider.GetRequiredService<AuthStateProvider>()
+                );
 
 var app = builder.Build();
 
