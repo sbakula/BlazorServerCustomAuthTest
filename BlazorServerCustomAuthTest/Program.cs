@@ -30,7 +30,8 @@ builder.Services.AddAuthentication(options =>
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-builder.Services.AddAuthorization();
+//builder.Services.AddAuthorization();
+builder.Services.AddScoped<AuthStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>(
                 provider => provider.GetRequiredService<AuthStateProvider>()
                 );
